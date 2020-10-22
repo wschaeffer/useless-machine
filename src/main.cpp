@@ -10,11 +10,11 @@ const int DELAY = 8;         //milliseconds
 const long shutdown = 20000; //milliseconds
 
 const int lidOpen = 10;
-const int lidClos = 90;
+const int lidClose = 90;
 const int lidOff = 110;
 
 const int armPeek = 100;
-const int armClos = 175;
+const int armClose = 175;
 const int armSwitch = 75;
 
 const int switchPin = 2;
@@ -51,8 +51,8 @@ void setup()
   lidServo.attach(lidServoPin);
   pinMode(switchPin, INPUT_PULLUP);
 
-  armServo.write(armClos);
-  lidServo.write(lidClos);
+  armServo.write(armClose);
+  lidServo.write(lidClose);
 }
 
 State decision(State a, State b, int weight = 5)
@@ -89,7 +89,7 @@ State handleOpeningState(Event event)
   switch (event)
   {
   case Event::TICK:
-    if (lidServo.moveTo(lidOpen) && armServo.moveTo(armClos))
+    if (lidServo.moveTo(lidOpen) && armServo.moveTo(armClose))
     {
       int weight = !switched ? 7 : 2;
       result = decision(State::PEEKING, State::CLOSING, weight);
@@ -111,7 +111,7 @@ State handleClosingState(Event event)
     result = State::OPENING;
     break;
   case Event::TICK:
-    if (lidServo.moveTo(lidClos))
+    if (lidServo.moveTo(lidClose))
     {
       if (switched)
       {
