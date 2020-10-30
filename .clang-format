@@ -1,0 +1,18 @@
+﻿---
+BasedOnStyle: Google
+AlignConsecutiveAssignments: true
+AlignOperands: 'true'
+AlignTrailingComments: true
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortLoopsOnASingleLine: false
+BreakBeforeBraces: Allman
+ColumnLimit: 80
+DerivePointerAlignment: false
+IndentWidth: 2
+Language: Cpp
+SpaceBeforeParens: Never
+Standard: c++11
+TabWidth: 2
+...
