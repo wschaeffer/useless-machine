@@ -1,6 +1,6 @@
 /// \file main.cpp
 /// \author wschaeffer
-/// \date 2020-10-22
+/// \date 2020-10-30
 /// \brief Most joyful yet useless machine ever!
 
 #include <Arduino.h>
@@ -18,6 +18,7 @@ const int armPeek   = 100;
 const int armClose  = 175;
 const int armSwitch = 75;
 
+const int ledPin      = 3;
 const int switchPin   = 2;
 const int lidServoPin = 9;
 const int armServoPin = 10;
@@ -50,6 +51,7 @@ void setup()
 {
   armServo.attach(armServoPin);
   lidServo.attach(lidServoPin);
+  pinMode(ledPin, OUTPUT);
   pinMode(switchPin, INPUT_PULLUP);
 
   armServo.write(armClose);
@@ -93,7 +95,16 @@ State handleOpeningState(Event event)
       if(lidServo.moveTo(lidOpen) && armServo.moveTo(armClose))
       {
         int weight      = !switched ? 7 : 2;
-        result = decision(State::PEEKING, State::CLOSING, weight);
+        State nextState = decision(State::PEEKING, State::CLOSING, weight);
+        if(nextState != State::CLOSING)
+        {
+          digitalWrite(ledPin, HIGH);
+        }
+        else
+        {
+          digitalWrite(ledPin, LOW);
+        }
+        result = nextState;
       }
       break;
     default:
