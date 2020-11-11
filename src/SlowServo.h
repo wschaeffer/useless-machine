@@ -5,11 +5,11 @@
 
 #pragma once
 
-#include "Servo.h"
+#include <SoftRcPulseOut.h>
 
-class SlowServo : public Servo
+class SlowServo : public SoftRcPulseOut
 {
-public:
+ public:
   SlowServo() = default;
 
   /// Call this function repeatedly to move servo to destination.

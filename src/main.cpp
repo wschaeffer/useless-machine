@@ -1,6 +1,6 @@
 /// \file main.cpp
 /// \author wschaeffer
-/// \date 2020-10-30
+/// \date 2020-11-10
 /// \brief Most joyful yet useless machine ever!
 
 #include <Arduino.h>
@@ -18,10 +18,10 @@ const int armPeek   = 100;
 const int armClose  = 175;
 const int armSwitch = 75;
 
-const int ledPin      = 3;
+const int ledPin      = 1;
 const int switchPin   = 2;
-const int lidServoPin = 9;
-const int armServoPin = 10;
+const int lidServoPin = 0;
+const int armServoPin = 4;
 
 SlowServo armServo;
 SlowServo lidServo;
@@ -60,7 +60,7 @@ void setup()
 
 State decision(State a, State b, int weight = 5)
 {
-  randomSeed(analogRead(0));
+  randomSeed(analogRead(5));
   long rand = random(10);
   return rand < weight ? a : b;
 }
@@ -209,6 +209,7 @@ void loop()
 {
   Event event        = Event::TICK;
   bool currentSwitch = digitalRead(switchPin);
+
   if(currentSwitch != previousSwitch)
   {
     previousSwitch = currentSwitch;
@@ -218,6 +219,7 @@ void loop()
     }
   }
 
+  SlowServo::refresh(true);
   HandleEvent(event);
   delay(DELAY);
 }

@@ -7,17 +7,17 @@
 
 bool SlowServo::moveTo(int destination)
 {
-  int position = Servo::read();
+  int position = SoftRcPulseOut::read();
 
-  if (position < destination)
+  if(position < destination)
   {
     position++;
   }
-  else if (destination < position)
+  else if(destination < position)
   {
     position--;
   }
 
-  Servo::write(position);
+  SoftRcPulseOut::write(position);
   return position == destination;
 }
