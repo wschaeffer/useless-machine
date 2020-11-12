@@ -15,7 +15,7 @@ const int lidClose = 90;
 const int lidOff   = 110;
 
 const int armPeek   = 100;
-const int armClose  = 175;
+const int armClose  = 170;
 const int armSwitch = 75;
 
 const int ledPin      = 1;
@@ -120,7 +120,9 @@ State handleClosingState(Event event)
   switch(event)
   {
     case Event::SWITCH:
-      result = State::OPENING;
+      switched      = false;
+      shutdownTimer = 0;
+      result        = State::OPENING;
       break;
     case Event::TICK:
       if(lidServo.moveTo(lidClose))
